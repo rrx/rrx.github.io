@@ -2,6 +2,8 @@
 title: "Microservices and Monoliths: More than you think"
 date: 2024-04-28T09:31:12-08:00
 draft: false
+tags: 
+- architecture
 ---
 
 When evaluating a complex software system, we must consider the architectural choice between microservices and monoliths. Many articles have been written on the difference between these two, but they mostly focus on the obvious. I'd like to dig a little deeper in this article. If you’re not quite clear on the distinction, [here is a great article.](https://aws.amazon.com/compare/the-difference-between-monolithic-and-microservices-architecture/)

@@ -3,11 +3,11 @@ title = "More Code, More Problems"
 # You can also set description and images in post front matter individually
 description = "Articles about software engineering"
 
-theme = "fuji"
+theme = "dead-simple"
 hasCJKLanguage = true
 enableEmoji = true
 enableRobotsTXT = true
-disableKinds = ["taxonomy"]
+#disableKinds = ["taxonomy"]
 ignoreErrors = ["error-disable-taxonomy"]
 
 ## Change this two to switch between different language
@@ -116,6 +116,7 @@ endLevel = 3
 
 [taxonomies]
 tag = "tags"
+category = "categories"
 
 [menu]
 [[menu.nav]]

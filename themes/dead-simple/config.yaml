@@ -1,0 +1,43 @@
+languageCode: en-us
+menu:
+  main:
+    - name: "<u>H</u>ome"
+      url: /
+      weight: 1
+    - name: "About"
+      url: /about/
+      weight: 2
+    - name: "RSS"
+      url: /index.xml
+      weight: 4
+    - name: "Github"
+      url: "https://github.com/rrx"
+      weight: 5
+    - name: "LinkedIn"
+      url: "https://www.linkedin.com/in/ryansadler/"
+      weight: 6
+    - name: "<u>T</u>ags"
+      url: "/tags"
+      weight: 6
+
+taxonomies:
+  tag: tags
+
+markup:
+  highlight:
+    codeFences: true
+    style: bw
+    lineNumbersInTable: false
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - html
+    - rss
+    - json
+  page:
+    - html
+
