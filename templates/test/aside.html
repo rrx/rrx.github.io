@@ -1,4 +1,4 @@
-<div class="sticky top-12 print:hidden">
+<div class="sticky top-0 print:hidden">
 	<div class="lg:hidden relative">
 		<div class="absolute right-0 inset-y-0">
 			<button type="button" x-on:click="showModal = false" 
@@ -12,7 +12,7 @@
 
 	{% if links %}
 	<div class="dark:text-white dark:bg-slate flex flex-col gap-2 p-2 border-b">
-		<h1 class="font-semibold dark:text-slate-200  text-2xl">Links</h1>
+		<h1 class="font-semibold dark:text-slate-200 text-2xl">Links</h1>
 		{% for level, id, link_title in links %}
 		<a href="{{ id }}"
 		   x-on:click="showModal = false"
@@ -24,8 +24,8 @@
 	{% endif %}
 
 	{% if toc %}
-	<div class="dark:text-white dark:bg-slate flex flex-col gap-2 p-2 border-b"
-		<h1 class="font-semibold dark:text-slate-200  text-2xl">Table of Contents</h1>
+	<div class="dark:text-white dark:bg-slate flex flex-col gap-2 p-2 border-b">
+		<h1 class="font-semibold dark:text-slate-200 text-2xl">Table of Contents</h1>
 		{% for level, id, link_title in toc %}
 		<a href="{{ id }}"
 		   x-on:click="showModal = false"

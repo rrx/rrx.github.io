@@ -26,6 +26,10 @@ class SyntaxHighlightRenderer(mistune.HTMLRenderer):
             return "\n<pre><code>%s</code></pre>\n" % mistune.escape(code)
         info = info.split()
         lang = info[0]
+
+        if lang == "mermaid":
+            return """\n<pre class="mermaid">%s</pre>\n""" % mistune.escape(code)
+
         try:
             lexer = pygments.lexers.get_lexer_by_name(lang, stripall=True)
             formatter = pygments.formatters.html.HtmlFormatter(lineseparator="<br>")
@@ -61,7 +65,6 @@ def parse_markdown(filename) -> Optional[Dict]:
         content, state = markdown.parse(content_filtered)
         toc = [(a, f"#{b}", c) for a, b, c in state.env["toc_items"]]
         teaser = plain_parser.render(data.content.split("<!--more-->")[0][:2000])
-        # teaser = plain_parser.render(content_filtered)
         return data, content, teaser, toc
 
 
@@ -93,8 +96,10 @@ def _parse_tree(path, template_dir, layout, **kwargs):
     tags = defaultdict(list)
 
     formatter = pygments.formatters.html.HtmlFormatter()
+    base = "https://rrx.github.io"
     main = {
         "site": {
+            "base": base,
             "lang": "en",
             "highlight_styles": formatter.get_style_defs(),
             "title": "More Code, More Problems",
@@ -108,6 +113,7 @@ def _parse_tree(path, template_dir, layout, **kwargs):
             (3, "https://www.linkedin.com/in/ryansadler/", "LinkedIn"),
         ],
     }
+    main.update(kwargs)
 
     if kwargs.get("debug", False):
         main["links"].append((3, "/testing", "Testing"))
@@ -151,7 +157,10 @@ def _parse_tree(path, template_dir, layout, **kwargs):
                 }
 
                 if "thumbnail" in data:
-                    post["thumbnail"] = os.path.join(out_dir, data["thumbnail"])
+                    post["thumbnail"] = os.path.join(base, out_dir, data["thumbnail"])
+
+                if "author" in data:
+                    post["author"] = data["author"]
 
                 posts.append(post)
 
@@ -160,7 +169,15 @@ def _parse_tree(path, template_dir, layout, **kwargs):
 
     out_posts = []
     for post in posts:
-        kwargs = dict(tags=sorted(tags.keys()), toc=post["toc"], post=post, **main)
+        kwargs = dict(
+            tags=sorted(tags.keys()),
+            toc=post["toc"],
+            post=post,
+            image=post.get("thumbnail"),
+            title=post["title"],
+            description=post["teaser"],
+            **main,
+        )
 
         html = template.render(**kwargs)
         if post["is_post"]:
@@ -175,6 +192,7 @@ def _parse_tree(path, template_dir, layout, **kwargs):
     kwargs = dict(
         posts=list(sorted(out_posts, key=lambda x: x["date"], reverse=True)),
         tags=sorted(tags.keys()),
+        title=main["site"]["title"],
         **main,
     )
 
